@@ -170,5 +170,4 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
-ransomware.py
 # End

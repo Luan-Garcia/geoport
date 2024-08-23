@@ -5,7 +5,7 @@ import time
 import requests
 import random
 import platform
-# import keyboard
+import keyboard
 import webbrowser
 from core import doxxing, goldenphish, ser, scanner, ui, rastrear
 from malware import ransomware, spyware
