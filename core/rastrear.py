@@ -14,6 +14,31 @@ def cep(cep):
     
     ui.question()
 
+def validate_cpf(cpf):
+    cpf = ''.join(filter(str.isdigit, cpf))
+
+    if len(cpf) != 11:
+        return False
+
+    if cpf == cpf[0] * len(cpf):
+        return False
+    
+    def calculate_digit(cpf, digit_position):
+        weights = list(range(digit_position, 1, -1))
+        sum_digits = sum(int(digit) * weight for digit, weight in zip(cpf, weights))
+        remainder = sum_digits % 11
+        return 0 if remainder < 2 else 11 - remainder
+
+    first_digit = calculate_digit(cpf[:9], 10)
+    if int(cpf[9]) != first_digit:
+        return False
+
+    second_digit = calculate_digit(cpf[:10], 11)
+    if int(cpf[10]) != second_digit:
+        return False
+
+    return True
+
 def cpf(cpf, base):
     if base == 1:
         url = f"https://centralbroxys.net/apis/cadsus/cpf.php?token=@BINGSIXBOT&cpf={cpf}"
@@ -30,20 +55,16 @@ def cpf(cpf, base):
     else:
         return None  # Nenhuma informação encontrada ou erro na consulta
     
-def Ip():
-    ip = input(f'{Fore.WHITE}Digite o IP\n⤷  ')
+def Ip(ip):
     
-    if ip: 
-        url = f"http://ip-api.com/json/{ip}"
+    url = f"http://ip-api.com/json/{ip}"
 
-        request = urlopen(url)
-        data = request.read().decode()
+    request = urlopen(url)
+    data = request.read().decode()
 
-        data = eval(data)
+    data = eval(data)
 
-        for i in data:
-            print(f"{Fore.RED}{i} == {data[i]}")
-        
-        ui.question()
-    else:
-        return None
+    for i in data:
+        print(f"{Fore.RED}{i} == {data[i]}")
+    
+    

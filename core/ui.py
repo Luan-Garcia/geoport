@@ -16,7 +16,7 @@ def logo():
 |  | |_ | |   __|  |  |  |  | |   ___/  |  |  |  | |      /        |  |     
 |  |__| | |  |____ |  `--'  | |  |      |  `--'  | |  |\  \----.   |  |     
  \______| |_______| \______/  | _|       \______/  | _| `._____|   |__|  
-{Fore.WHITE}""")
+          {Fore.WHITE}""")
 
 def menu():
     print(f"""
@@ -33,11 +33,6 @@ def title(nome):
 def question():
     print(f"""
     {Fore.GREEN}[1]{Fore.WHITE} Realizar outra consulta
-    {Fore.RED}[0] Sair{Fore.WHITE}""")
+    {Fore.BLUE}[0] Voltar{Fore.WHITE}""")
     
-    voltar = int(input(f'⤷  '))
-    if voltar == 1:
-        clear()
-        return
-    else:
-        sys.exit()
+    return int(input(f'⤷  '))
