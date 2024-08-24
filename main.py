@@ -25,7 +25,7 @@ def main():
             ui.title("Geolocalizar IP\n")
 
             try:
-                ip = input(f'{Fore.WHITE}Digite o IP\n⤷  ')
+                ip = input(f'{Fore.WHITE}Digite um IP ({Fore.LIGHTBLACK_EX}000.000.000.000{Fore.RESET})\n⤷  ')
 
                 rastrear.Ip(ip)
                 
@@ -106,7 +106,7 @@ def main():
     {Fore.GREEN}[3]{Fore.WHITE} Trojan
     {Fore.BLUE}[0] Voltar{Fore.WHITE}""")
         
-            resposta = int(input("Selecione o vírus que deseja criar:\n⤷ "))
+            resposta = int(input("Selecione o vírus que deseja criar\n⤷ "))
 
             if resposta == 1:
                 ransomware.ransomware()
@@ -125,7 +125,6 @@ def main():
     # Rastrear
     elif resposta == 5:
         ui.clear()
-        ui.logo()
 
         while True:
             ui.clear()
@@ -136,49 +135,62 @@ def main():
     {Fore.GREEN}[1]{Fore.WHITE} CEP
     {Fore.GREEN}[2]{Fore.WHITE} CPF
     {Fore.BLUE}[0] Voltar{Fore.WHITE}""")
-            response = int(input(f'{Fore.WHITE}Insira a pesquisa que você deseja:\n⤷  '))
+            response = int(input(f'{Fore.WHITE}Insira a pesquisa que você deseja\n⤷  '))
 
             # CEP
             if response == 1:
-                ui.clear()
-                ui.logo()
-                ui.title("Rastrear Alvo")
+                while True:
+                    ui.clear()
+                    ui.logo()
+                    ui.title("Rastrear Alvo")
 
-                cep = input(f'{Fore.WHITE}Insira o CEP:\n⤷  ')
-                if cep == 0:
-                    break
-                
-                rastrear.cep(cep)
+                    cep = input(f'{Fore.WHITE}Insira um CEP ({Fore.LIGHTBLACK_EX}01001-000{Fore.RESET})\n⤷  ')
+                    validate = rastrear.validate_cep(cep)
+                    if validate == False:
+                        continue
+                    
+                    rastrear.cep(cep)
+
+                    response = ui.question()
+                    if response == 1:
+                        ui.clear()
+                        continue
+                    else:
+                        ui.clear()
+                        break;
+            
             # CPF
             elif response == 2:
-                ui.clear()
-                ui.logo()
-                ui.title("Rastrear Alvo\n")
-                
-                cpf = input(f'{Fore.WHITE}Insira o CPF:\n⤷  ')
-                validade = rastrear.validate_cpf(cpf)
-                if validade == False:
-                    continue
-                
-                print(f"""
+                while True:
+                    ui.clear()
+                    ui.logo()
+                    ui.title("Rastrear Alvo\n")
+                    
+                    cpf = input(f'{Fore.WHITE}Insira um CPF ({Fore.LIGHTBLACK_EX}000.000.000-00{Fore.RESET})\n⤷  ')
+                    
+                    validate = rastrear.validate_cpf(cpf)
+                    if validate == False:
+                        continue
+                    
+                    print(f"""
     {Fore.GREEN}[1]{Fore.WHITE} CADSUS
     {Fore.GREEN}[2]{Fore.WHITE} SIREGI
     {Fore.BLUE}[0] Voltar{Fore.WHITE}""")
-                
-                base = int(input(f'{Fore.WHITE}\nSelecione a base:\n⤷  '))
-                if base == 0:
-                    continue
+                    
+                    base = int(input(f'{Fore.WHITE}\nSelecione a base\n⤷  '))
+                    if base == 0:
+                        break
 
-                result = rastrear.cpf(cpf, base)
-                print(result)
+                    result = rastrear.cpf(cpf, base)
+                    print(result)
 
-                response = ui.question()
-                if response == 1:
-                    ui.clear()
-                    continue
-                else:
-                    ui.clear()
-                    break;
+                    response = ui.question()
+                    if response == 1:
+                        ui.clear()
+                        continue
+                    else:
+                        ui.clear()
+                        break;
 
             elif response == 0:
                 break
@@ -205,5 +217,5 @@ if __name__ == '__main__':
             main()
         except Exception as ex:
             ui.clear()
-            ui.title(f'{Fore.RED}Ocorreu um erro tente novamente!')
+            ui.title(f'{Fore.RED}Ocorreu um erro tente novamente!\n{ex}')
             continue

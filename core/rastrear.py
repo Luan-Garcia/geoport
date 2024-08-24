@@ -12,8 +12,6 @@ def cep(cep):
     else:
         print(f"{Fore.RED}Nenhuma informação encontrada ou erro na consulta.")
     
-    ui.question()
-
 def validate_cpf(cpf):
     cpf = ''.join(filter(str.isdigit, cpf))
 
@@ -37,6 +35,18 @@ def validate_cpf(cpf):
     if int(cpf[10]) != second_digit:
         return False
 
+    return True
+
+def validate_cep(cep):
+    # Remove qualquer caractere que não seja dígito
+    cep = ''.join(filter(str.isdigit, cep))
+
+    # Verifica se o CEP tem exatamente 8 dígitos
+    if len(cep) != 8:
+        return False
+
+    # Regras adicionais poderiam ser implementadas aqui, por exemplo,
+    # validar se o CEP pertence a uma faixa válida de códigos postais no Brasil.
     return True
 
 def cpf(cpf, base):
