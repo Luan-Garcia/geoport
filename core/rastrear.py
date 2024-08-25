@@ -83,12 +83,11 @@ def nmap():
 def shodan_func():
     ui.clear
     ui.logo
-    print("1 - IP único")
-    print("2 - Lista de IPs")
     
     ips = input("Insira o endereço de IP: \n⤷  ")
 
-    api_key = input('Insira a sua API key, você pode obte-la no account.shodan.io \n⤷')
+    ips = ips.split(',')
+    api_key = input('Insira a sua API key, você pode obte-la em account.shodan.io \n⤷')
 
     api = shodan.Shodan(api_key)
 
@@ -100,7 +99,8 @@ def shodan_func():
                 print(port)
         except shodan.APIError as e:
             print(f"Error: {e}")
-
+    ui.question
+    
 def whois():
     Ip = input(f'{Fore.WHITE}Digite o IP\n⤷  ')
 

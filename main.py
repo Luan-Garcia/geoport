@@ -1,6 +1,5 @@
 # bibliotecas
 from colorama import Fore
-import shutil
 import time
 import requests
 import random
