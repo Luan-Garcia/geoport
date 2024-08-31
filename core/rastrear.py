@@ -77,7 +77,7 @@ def nmap():
     resposta3 = int(input('O que deseja fazer? \n⤷  '))
     if resposta3 == 1:
         nm = PortScanner(input("Digite o IP \n ⤷"))
-        info = nm.scan("129.168.0.19")
+        info = nm.scan("192.168.0.19")
         print(info)
 
 def shodan_func():
