@@ -72,12 +72,12 @@ def cpf(cpf, base):
     else:
         return None  # Nenhuma informação encontrada ou erro na consulta
 
-def nmap():
+def nmap_func():
     ui.menu_nmap()
     resposta3 = int(input('O que deseja fazer? \n⤷  '))
     if resposta3 == 1:
         nm = PortScanner(input("Digite o IP \n ⤷"))
-        info = nm.scan("192.168.0.19")
+        info = nm.scan
         print(info)
 
 def shodan_func():
@@ -136,7 +136,7 @@ def pergunta():
         except Exception as  ex:
             print(f"{Fore.RED}Error: ({ex})")
     if resposta1 == 2:
-        nmap()
+        nmap_func()
     if resposta1 == 3:
         try:
             shodan_func()
