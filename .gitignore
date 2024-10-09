@@ -170,4 +170,7 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
+# Others
+consultas/
+apis.json
 # End
