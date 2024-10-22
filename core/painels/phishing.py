@@ -1,44 +1,48 @@
 from core.ui import clear, logo, title, question
 
+def site_phishing():
+    # Função para analisar se é Phishing
+    def check_openphish(url):
+        # Analisar a lista de APIs do OpenPish
+        api_url = 'https://openphish.com/feed.txt'
+        resposta = requests.get(api_url)
+        urls_phishing = resposta.text.split(" ")
+        
+        # Checar se a URL está na lista do OpenPhish
+        if url in urls_phishing:
+        	return True
+        return False
+        
+        # A URL que o usuario deseja analisar
+        URL = input('Qual a URL que deseja analisar⤷ ')
+        		
+        # Chamar a função
+        is_phishing = check_openphish(URL)
+        
+        # Se for Phishing...
+        if is_phishing:
+        	print(f"{Fore.RED}AURL {URL} é um site de Pishing""")
+        else:
+            # Se não for Phishing...
+        	print(f"{Fore.GREEN}A URL {URL} não é um site de Pishing")
+
 def start():
     while True:
         clear()
         logo()
-        title("Pishing - Templates\n")
+        title("Pishing - Ações\n")
 
-        print("[1] Instagram          [2] Facebook            [3] Snapchat")
-        print("[4] Twitter            [5] GitHub              [6] Gmail")
-        print("[7] Spotify            [8] Netflix             [9] PayPal")
-        print("[10] Microsoft         [11] Steam              [12] Yahoo")
-        print("[13] LinkedIn          [14] Protonmail         [15] Wordpress")
-        print("[16] Pinterest         [17] Twitch             [18] Discord")
-        print("[19] Disney +          [20] Star +             [21] Hbo max")
+        print("""
+        [1] Verificar URL
+        [2] Analisar email
+        [3] Analisar SMS
+        [4] Ataque Phishing
+        """)
+        
+        input_acao = int(input("Selecione uma ação de Phishing⤷ "))
 
-        templates = {
-            '1':'instagram',
-            '2': 'facebook',
-            '3': 'snapchat',
-            '4': 'twitter',
-            '5': 'github',
-            '6': 'Gmail',
-            '7': 'spotify',
-            '8': 'netflix',
-            '9': 'paypal',
-            '10': 'Microsoft',
-            '11': 'steam',
-            '12': 'yahoo',
-            '13': 'linkedin',
-            '14': 'protonmail',
-            '15': 'wordpress',
-            '16': 'Pinterest',
-            '17': 'Twitch',
-            '18': 'Discord',
-            '19': 'Disney +',
-            '20': 'Star +',
-            '21': 'Hbo max',
-            }
-
-        phishing = int(input("Selecione um template\n⤷ "))
+        if input_acao == 1:
+            site_phishing()
 
         response = question()
         if response == 1:
